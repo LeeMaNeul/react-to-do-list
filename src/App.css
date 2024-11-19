@@ -3,17 +3,17 @@
 }
 
 .inner {
-  width: 80%;
-  height: 450px;
+  width: 80vw;
+  height: 100vh;
   margin: 0 auto;
   position: relative;
 }
 
 .wrapper {
-  position: absolute;
   width: 50%;
-  left: 0; right: 0;
-  margin: auto;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
 }
 
 .shadow {

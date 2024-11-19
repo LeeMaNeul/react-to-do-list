@@ -4,7 +4,7 @@ import Button from './Button'
 
 const TodoInput = ({ handleChange, addTodo, value, handleKeyPress }) => {
   return (
-    <div style={{ display: 'flex', gap: 20}}>
+    <Wrapper>
         <Input 
             placeholder='할 일을 입력하세요.'
             onChange={handleChange}
@@ -12,11 +12,16 @@ const TodoInput = ({ handleChange, addTodo, value, handleKeyPress }) => {
             onKeyUp={handleKeyPress}
         />
         <Button onClick={addTodo} message={"등록"}></Button>
-    </div>
+    </Wrapper>
   )
 }
 
 export default TodoInput
+
+const Wrapper = styled.div `
+  display: flex;
+  gap: 20px;
+`
 
 const Input = styled.input `
     width: 300px;

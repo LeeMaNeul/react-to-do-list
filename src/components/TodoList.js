@@ -8,7 +8,8 @@ const TodoList = ({ todos, delTodo }) => {
             {todos.map((todo, index) => {
                 return (
                     <li key={index} style={{ display: 'flex', alignItems: 'center', gap: 20}}>
-                        <List>{todo}</List>
+                        <CheckBox type='checkbox'/>
+                        <List >{todo}</List>
                         <Button onClick={() => delTodo(index)} message="삭제"></Button>
                     </li>
                 )
@@ -24,3 +25,9 @@ const List = styled.div `
     font-size: 20px;
     margin-top: 22px;
 `
+
+const CheckBox = styled.input `
+    margin-top: 2rem;
+    margin-right: -10px;
+    width: 1rem; height: 1rem;
+`;

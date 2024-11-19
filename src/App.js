@@ -27,7 +27,7 @@ function App() {
   }
 
   const handleKeyPress = e => {
-    if (e.key == 'Enter') {
+    if (e.key === 'Enter') {
       e.preventDefault();
       addTodo();
     }

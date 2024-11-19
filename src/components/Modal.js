@@ -3,7 +3,7 @@ import styled from 'styled-components'
 
 const TodoModal = ({ setModal }) => {
   const handleKeyDown = e => {
-    if (e.key == 'Enter') setModal(false);
+    if (e.key === 'Enter') setModal(false);
   }
 
   return (
@@ -29,8 +29,11 @@ const Modal = styled.div `
 
 const Message = styled.p `
     text-align: center;
-    margin-top: 20%;
     font-size: 25px;
+    position: absolute;
+    top: 40%; left: 50%;
+    transform: translate(-50%, -50%);
+    width: 300px;
     color: #444;
 `
 
