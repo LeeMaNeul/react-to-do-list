@@ -2,12 +2,12 @@ import React from 'react'
 import styled from 'styled-components'
 import Button from './Button'
 
-const TodoInput = ({ handleChange, addTodo, value, handleKeyPress }) => {
+const TodoInput = ({ handleInputChange, addTodo, value, handleKeyPress }) => {
   return (
     <Wrapper>
         <Input 
             placeholder='할 일을 입력하세요.'
-            onChange={handleChange}
+            onChange={handleInputChange}
             value={value}
             onKeyUp={handleKeyPress}
         />

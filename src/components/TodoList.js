@@ -2,16 +2,36 @@ import React from 'react'
 import styled from 'styled-components'
 import Button from './Button';
 
-const TodoList = ({ todos, delTodo }) => {
+const TodoList = ({ handleChange, todos, delTodo, handleClick, handleRevise }) => {
     return (
         <ul style={{ marginLeft: -30}}>
             {todos.map((todo, index) => {
                 return (
-                    <li key={index} style={{ display: 'flex', alignItems: 'center', gap: 20}}>
-                        <CheckBox type='checkbox'/>
-                        <List >{todo}</List>
-                        <Button onClick={() => delTodo(index)} message="삭제"></Button>
-                    </li>
+                    todo && (
+                        <li key={index} style={{ display: 'flex', alignItems: 'center', gap: 20}}>
+                            <CheckBox 
+                                type='checkbox' 
+                                checked={todo.completed} 
+                                onChange={() => handleClick(index)}
+                            />
+                            {todo.revise ? (
+                                <ListInput 
+                                    value={todo.text} 
+                                    onChange={e => handleChange(e, index)}
+                                    placeholder='할 일을 입력하세요.'
+                                />
+                            ) : (
+                                <List 
+                                    onClick={() => handleRevise(index)}
+                                    $completed={todo.completed}
+                                >
+                                    {todo.text}
+                                </List>
+                            )}
+                            {todo.revise && <Button message="수정" onClick={() => handleRevise(index)}></Button>}
+                            <Button onClick={() => delTodo(index)} message="삭제"></Button>
+                        </li>
+                    )
                 )
             })}
         </ul>
@@ -24,6 +44,24 @@ const List = styled.div `
     list-style: none;
     font-size: 20px;
     margin-top: 22px;
+    text-decoration: ${(props) => (props.$completed ? "line-through" : "none")};
+`
+
+const ListInput = styled.input `
+    width: 300px;
+    height: 40px;
+    border: 1px solid #999;
+    border-radius: 10px;
+    outline: none;
+    box-sizing: border-box;
+    padding: 10px 20px;
+    font-size: 16px;
+    margin-top: 30px;
+    background-color: #F0F8FF;
+    
+    &:focus {
+        border: 2px solid #A7D8FF;
+    }
 `
 
 const CheckBox = styled.input `
