@@ -8,28 +8,28 @@ const TodoList = ({ handleChange, todos, delTodo, handleClick, handleRevise }) =
             {todos.map((todo, index) => {
                 return (
                     todo && (
-                        <li key={index} style={{ display: 'flex', alignItems: 'center', gap: 20}}>
+                        <li key={todo.id} style={{ display: 'flex', alignItems: 'center', gap: 20}}>
                             <CheckBox 
                                 type='checkbox' 
                                 checked={todo.completed} 
-                                onChange={() => handleClick(index)}
+                                onChange={() => handleClick(todo.id)}
                             />
                             {todo.revise ? (
                                 <ListInput 
                                     value={todo.text} 
-                                    onChange={e => handleChange(e, index)}
+                                    onChange={e => handleChange(e, todo.id)}
                                     placeholder='할 일을 입력하세요.'
                                 />
                             ) : (
                                 <List 
-                                    onClick={() => handleRevise(index)}
+                                    onClick={() => handleRevise(todo.id)}
                                     $completed={todo.completed}
                                 >
                                     {todo.text}
                                 </List>
                             )}
-                            {todo.revise && <Button message="수정" onClick={() => handleRevise(index)}></Button>}
-                            <Button onClick={() => delTodo(index)} message="삭제"></Button>
+                            {todo.revise && <Button message="수정" onClick={() => handleRevise(todo.id)}></Button>}
+                            <Button onClick={() => delTodo(todo.id)} message="삭제"></Button>
                         </li>
                     )
                 )

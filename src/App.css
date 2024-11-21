@@ -10,10 +10,11 @@
 }
 
 .wrapper {
-  width: 50%;
+  width: 70%;
   position: absolute;
   left: 50%;
   transform: translateX(-50%);
+  background-color: red;
 }
 
 .shadow {
