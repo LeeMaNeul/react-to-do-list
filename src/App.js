@@ -5,14 +5,18 @@ import TodoList from './components/TodoList';
 import TodoModal from './components/Modal';
 
 function App() {
-  const [value, setValue] = useState("");
-  const [todos, setTodos] = useState([]); // 수정 기능 및 완료 기능 추가를 위해 기존 단순 배열에서 배열 내 요소를 객체 데이터로 구성
-  const [filteredTodos, setFilteredTodos] = useState([]);
-  const [filterOption, setfilterOption] = useState("1");
-  const [modal, setModal] = useState(false);
+  const [value, setValue] = useState(""); // 할 일 등록 input 값
+  const [search, setSearch] = useState(""); // 검색 input 값
+  const [todos, setTodos] = useState([]); // 전체 할 일 데이터
+  const [displayedTodos, setDisplayedTodos] = useState([]); // 최종 렌더링할 데이터
+  // 필터링 + 검색 기능
+  const [filterOption, setfilterOption] = useState("1"); // 필터 옵션
 
-  const filter = () => {
+  const [modal, setModal] = useState(false); // 모달 상태
+
+  const filterAndSearch = () => { // 필터 옵션에 따라 실행되는 각 필터링 함수 + 검색 기능
     let updatedTodos = [...todos];
+
     switch (filterOption) {
       case "1":
         updatedTodos.sort((a, b) => a.id - b.id);
@@ -29,39 +33,58 @@ function App() {
       default:
         break;
     }
-    setFilteredTodos(updatedTodos);
+  
+    if (search.trim()) {
+      updatedTodos = updatedTodos.filter(todo => 
+        todo.text.toLowerCase().includes(search.toLowerCase())
+      );
+    }
+
+    setDisplayedTodos(updatedTodos);
   }
 
   useEffect(() => {
-    filter();
-  }, [todos, filterOption]); 
+    filterAndSearch();
+  }, [todos, filterOption, search]); 
   // todos 추가될 때 filter 함수를 실행 => 필터 적용 시 추가된 todos가 보여야 돼서
 
+  useEffect(() => {
+    const savedTodos = localStorage.getItem('todos');
+    if (savedTodos) setTodos(JSON.parse(savedTodos));
+  }, []);
 
+  useEffect(() => {
+    if (todos.length > 0) localStorage.setItem("todos", JSON.stringify(todos));
+  }, [todos]);
+  
   
 
-  const handleFilterChange = e => {
+  const handleSearchChange = e => {
+    setSearch(e.target.value);
+  }
+
+  const handleFilterChange = e => { // 필터 옵션 선택 모니터링
     setfilterOption(e.target.value);
   }
 
-  const handleClick = (id) => {
+  const handleClick = (id) => { // 등록 버튼 클릭
     setTodos(prev => prev.map((todo, i) => (
       todo.id === id ? {...todo, completed: !todo.completed } : todo
     )));
   }
 
-  const handleChange = (e, id) => {
+  const handleChange = (e, id) => { // 할 일 수정 input 값 모니터링
     const updatedValue = e.target.value;
     setTodos(prev => prev.map((todo) => (
       todo.id === id ? { ...todo, text: updatedValue } : todo
     )))
   }
 
-  const handleInputChange = e => {
+  const handleInputChange = e => { // 할 일 등록 input 값 모니터링
     setValue(e.target.value);
   }
 
-  const handleRevise = (id) => {
+  const handleRevise = (id) => { // 할 일 수정 버튼 클릭 시 이벤트 발생
     setTodos(prev => prev.map((todo) => {
       if (todo.id === id) {
         if (todo.text.trim()) {
@@ -75,7 +98,7 @@ function App() {
     }));
   }
 
-  const addTodo = () => {
+  const addTodo = () => { // 할 일 등록 버튼 클릭 시 이벤트 발생
     if (value.trim()) {
       setTodos([
         ...todos,
@@ -87,11 +110,11 @@ function App() {
     }
   }
 
-  const delTodo = id => {
+  const delTodo = id => { // 할 일 삭제 버튼 클릭 시 이벤트 발생
     setTodos(todos.filter((todo) => todo.id !== id));
   }
 
-  const handleKeyPress = e => {
+  const handleKeyPress = e => { // 엔터 키 누르면 등록 함수 실행
     if (e.key === 'Enter') {
       e.preventDefault();
       addTodo();
@@ -104,8 +127,22 @@ function App() {
       <div className='inner'>
         {modal && <TodoModal setModal={setModal}/>}
         <div className='wrapper'>
-          <TodoInput handleKeyPress={handleKeyPress} handleInputChange={handleInputChange} addTodo={addTodo} value={value} handleFilterChange={handleFilterChange}/>
-          <TodoList handleClick={handleClick} handleChange={handleChange} todos={filteredTodos} delTodo={delTodo} handleRevise={handleRevise} />
+          <TodoInput 
+            handleKeyPress={handleKeyPress} 
+            handleInputChange={handleInputChange} 
+            addTodo={addTodo} 
+            value={value} 
+            search={search}
+            handleFilterChange={handleFilterChange} 
+            handleSearchChange={handleSearchChange}
+          />
+          <TodoList 
+            handleClick={handleClick} 
+            handleChange={handleChange} 
+            todos={displayedTodos} 
+            delTodo={delTodo} 
+            handleRevise={handleRevise} 
+          />
         </div>
       </div>
     </div>

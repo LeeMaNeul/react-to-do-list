@@ -3,7 +3,15 @@ import styled from 'styled-components'
 import Button from './Button'
 import Search from '../search.png'
 
-const TodoInput = ({ handleFilterChange, handleInputChange, addTodo, value, handleKeyPress }) => {
+const TodoInput = ({ 
+  search, 
+  handleSearchChange, 
+  handleFilterChange, 
+  handleInputChange, 
+  addTodo, 
+  value, 
+  handleKeyPress
+}) => {
   return (
     <Wrapper>
       <Input 
@@ -23,7 +31,12 @@ const TodoInput = ({ handleFilterChange, handleInputChange, addTodo, value, hand
             opacity: 0.5
           }}
         />
-        <SearchInput />
+        <SearchInput 
+          type="text"
+          placeholder='검색'
+          onChange={e => handleSearchChange(e)}
+          value={search}
+        />
       </div>
       <Filter defaultValue="1" onChange={handleFilterChange}>
         <option value="1">생성일 오름</option>
@@ -86,6 +99,6 @@ const SearchInput = styled.input `
     background-color: #F0F8FF;
     
     &:focus {
-        border: 2px solid #A7D8FF;
+      border: 2px solid #A7D8FF;
     }
 `
