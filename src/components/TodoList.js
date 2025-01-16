@@ -51,13 +51,10 @@ const List = styled.div `
   font-size: 20px;
   margin-top: 22px;
   text-decoration: ${(props) => (props.$completed ? "line-through" : "none")};
-<<<<<<< HEAD
-=======
 
   @media (max-width: 768px) {
     flex-grow: 1;
   }
->>>>>>> ac7d0bb (반응형 적용)
 `
 
 const ListInput = styled.input `
@@ -73,15 +70,11 @@ const ListInput = styled.input `
   background-color: #F0F8FF;
   
   &:focus {
-<<<<<<< HEAD
-      border: 2px solid #A7D8FF;
-=======
     border: 2px solid #A7D8FF;
   }
 
   @media (max-width: 768px) {
     flex-grow: 1;
->>>>>>> ac7d0bb (반응형 적용)
   }
 `
 

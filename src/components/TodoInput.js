@@ -14,48 +14,17 @@ const TodoInput = ({
 }) => {
   return (
     <Wrapper>
-<<<<<<< HEAD
-      <Input 
+      <InputWrapper>
+        <Input 
           placeholder='할 일을 입력하세요.'
           onChange={handleInputChange}
           value={value}
           onKeyUp={handleKeyPress}
-      />
-      <Button onClick={addTodo} message={"등록"}></Button>
-      <div style={{ display: 'flex', position: 'relative', marginTop: 30, marginLeft: 70 }}>
-        <img 
-          src={Search}
-          style={{
-            width: 15, height: 16,
-            position: 'absolute',
-            left: 10, top: 12,
-            opacity: 0.5
-          }}
-        />
-        <SearchInput 
-          type="text"
-          placeholder='검색'
-          onChange={e => handleSearchChange(e)}
-          value={search}
-        />
-      </div>
-      <Filter defaultValue="1" onChange={handleFilterChange}>
-        <option value="1">생성일 오름</option>
-        <option value="2">생성일 내림</option>
-        <option value="3">완료</option>
-        <option value="4">미완료</option>
-      </Filter>
-=======
-      <InputWrapper>
-        <Input 
-            placeholder='할 일을 입력하세요.'
-            onChange={handleInputChange}
-            value={value}
-            onKeyUp={handleKeyPress}
         />
         <Button onClick={addTodo} message={"등록"}></Button>
       </InputWrapper>
-      <div style={{ display: 'flex'}}>
+      
+      <div style={{ display: 'flex' }}>
         <SearchWrapper>
           <Img 
             src={Search}
@@ -68,6 +37,7 @@ const TodoInput = ({
             value={search}
           />
         </SearchWrapper>
+
         <Filter defaultValue="1" onChange={handleFilterChange}>
           <option value="1">생성일 오름</option>
           <option value="2">생성일 내림</option>
@@ -75,7 +45,6 @@ const TodoInput = ({
           <option value="4">미완료</option>
         </Filter>
       </div>
->>>>>>> ac7d0bb (반응형 적용)
     </Wrapper>
   )
 }
@@ -105,6 +74,7 @@ const Wrapper = styled.div `
     flex-direction: column;
   }
 `
+
 const InputWrapper = styled.div `
   display: flex;
   gap: 20px;
@@ -119,38 +89,6 @@ const InputWrapper = styled.div `
 `
 
 const Input = styled.input `
-<<<<<<< HEAD
-    width: 300px;
-    height: 40px;
-    border: 1px solid #999;
-    border-radius: 10px;
-    outline: none;
-    box-sizing: border-box;
-    padding: 10px 20px;
-    font-size: 16px;
-    margin-top: 30px;
-    background-color: #F0F8FF;
-    
-    &:focus {
-        border: 2px solid #A7D8FF;
-    }
-`
-
-const SearchInput = styled.input `
-    width: 200px;
-    height: 40px;
-    border: 1px solid #999;
-    border-radius: 10px;
-    outline: none;
-    box-sizing: border-box;
-    padding: 10px 20px 10px 34px;
-    font-size: 16px;
-    background-color: #F0F8FF;
-    
-    &:focus {
-      border: 2px solid #A7D8FF;
-    }
-=======
   width: 31rem;
   height: 40px;
   border: 1px solid #999;
@@ -163,12 +101,13 @@ const SearchInput = styled.input `
   background-color: #F0F8FF;
   
   &:focus {
-      border: 2px solid #A7D8FF;
+    border: 2px solid #A7D8FF;
   }
 
   @media (max-width: 768px) {
     flex-grow: 1;
   }
+  
   @media (max-width: 1280px) {
     width: 100%;
   }
@@ -220,5 +159,4 @@ const Img = styled.img `
   @media (max-width: 768px) {
     left: 10px;
   }
->>>>>>> ac7d0bb (반응형 적용)
 `
